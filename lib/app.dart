@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'data/providers/auth_provider.dart';
+import 'data/providers/theme_provider.dart';
 import 'features/auth/login_page.dart';
 import 'features/auth/signup_page.dart';
 import 'features/auth/onboarding_page.dart';
@@ -15,18 +16,18 @@ import 'features/tips/tips_page.dart';
 import 'features/settings/settings_page.dart';
 
 class NightOwlApp extends StatelessWidget {
-  NightOwlApp({Key? key}) : super(key: key);
+  const NightOwlApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<AuthProvider>(
-      builder: (context, authProvider, _) {
+    return Consumer2<AuthProvider, ThemeProvider>(
+      builder: (context, authProvider, themeProvider, _) {
         return MaterialApp(
           title: 'NightOwl',
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
-            primarySwatch: Colors.indigo,
             brightness: Brightness.light,
+            primarySwatch: Colors.indigo,
             useMaterial3: true,
           ),
           darkTheme: ThemeData(
@@ -34,28 +35,22 @@ class NightOwlApp extends StatelessWidget {
             primarySwatch: Colors.indigo,
             useMaterial3: true,
           ),
-          themeMode: ThemeMode.system,
+          themeMode: themeProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
           initialRoute: '/onboarding',
           routes: {
-            '/onboarding': (context) => OnboardingPage(),
-            '/login': (context) => LoginPage(),
-            '/signup': (context) => SignupPage(),
-            '/dashboard': (context) => authProvider.currentUser != null
-                ? DashboardPage()
-                : LoginPage(),
-            '/tracker': (context) => TrackerPage(),
-            '/add_sleep': (context) => AddSleepPage(),
-            '/smart_alarm': (context) => SmartAlarmPage(),
-            '/history': (context) => SleepHistoryPage(),
-            '/analytics': (context) => AnalyticsPage(),
-            '/tips': (context) => TipsPage(),
-            '/settings': (context) => SettingsPage(
-                  onThemeToggle: () {
-                    print("Theme toggled");
-                  },
-                ),
-            '/quotes': (context) =>
-                Placeholder(), // Replace with actual quotes widget
+            '/onboarding': (context) => const OnboardingPage(),
+            '/login': (context) => const LoginPage(),
+            '/signup': (context) => const SignupPage(),
+            '/dashboard': (context) =>
+                authProvider.currentUser != null ? const DashboardPage() : const LoginPage(),
+            '/tracker': (context) => const TrackerPage(),
+            '/add_sleep': (context) => const AddSleepPage(),
+            '/smart_alarm': (context) => const SmartAlarmPage(),
+            '/history': (context) => const SleepHistoryPage(),
+            '/analytics': (context) => const AnalyticsPage(),
+            '/tips': (context) => const TipsPage(),
+            '/settings': (context) => const SettingsPage(),
+            '/quotes': (context) => const Placeholder(),
           },
         );
       },

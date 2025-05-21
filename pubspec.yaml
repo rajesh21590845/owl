@@ -8,16 +8,29 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.2
-  shared_preferences: ^2.2.2
-  provider: ^6.1.1
-  image_picker: ^0.8.7+4
-  intl: ^0.18.1
 
+  # Notifications
+  flutter_local_notifications: ^16.3.0
+
+  # UI & Material icons
+  cupertino_icons: ^1.0.2
+
+  # State management
+  provider: ^6.1.1
+
+  # Local storage for theme/user data
+  shared_preferences: ^2.2.2
+
+  # Image picker for profile image (camera/gallery)
+  image_picker: ^0.8.7+4
+
+  # For date/time formatting
+  intl: ^0.18.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_lints: ^3.0.1
 
 flutter:
   uses-material-design: true

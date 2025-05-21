@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class AnalyticsPage extends StatefulWidget {
-  const AnalyticsPage({Key? key}) : super(key: key);
+  const AnalyticsPage({super.key});
 
   @override
   State<AnalyticsPage> createState() => _AnalyticsPageState();
@@ -14,14 +14,46 @@ class _AnalyticsPageState extends State<AnalyticsPage> {
   double sleepQuality = 5;
   TimeOfDay? startTime;
   TimeOfDay? endTime;
-
   List<double> analyticsData = [];
+
+  late FlutterLocalNotificationsPlugin notificationsPlugin;
+
+  @override
+  void initState() {
+    super.initState();
+    notificationsPlugin = FlutterLocalNotificationsPlugin();
+    const initializationSettings = InitializationSettings(
+      android: AndroidInitializationSettings('@mipmap/ic_launcher'),
+    );
+    notificationsPlugin.initialize(initializationSettings);
+  } 
+
+  Future<void> _showMissedSleepNotification() async {
+    const androidDetails = AndroidNotificationDetails(
+      'missed_sleep',
+      'Sleep Alert',
+      importance: Importance.max,
+      priority: Priority.high,
+      icon: '@mipmap/ic_launcher',
+    );
+    const details = NotificationDetails(android: androidDetails);
+
+    await notificationsPlugin.show(
+      0,
+      'Sleep Rebel Detected 😴',
+      'Missing your bedtime again? Even your pillow misses you!',
+      details,
+    );
+  }
 
   void _submitData() {
     if (_formKey.currentState!.validate()) {
       setState(() {
         analyticsData.add(sleepHours);
       });
+      if (sleepHours < 5) {
+        _showMissedSleepNotification();
+      }
     }
   }
 
@@ -37,6 +69,11 @@ class _AnalyticsPageState extends State<AnalyticsPage> {
     }
   }
 
+  double get averageSleep {
+    if (analyticsData.isEmpty) return 0;
+    return analyticsData.reduce((a, b) => a + b) / analyticsData.length;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +82,7 @@ class _AnalyticsPageState extends State<AnalyticsPage> {
         padding: const EdgeInsets.all(16.0),
         child: Row(
           children: [
-            // Left Side Form
+            // Left Form
             Expanded(
               child: Form(
                 key: _formKey,
@@ -95,10 +132,8 @@ class _AnalyticsPageState extends State<AnalyticsPage> {
                 ),
               ),
             ),
-
             const SizedBox(width: 20),
-
-            // Right Side Chart
+            // Right Chart
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -107,9 +142,12 @@ class _AnalyticsPageState extends State<AnalyticsPage> {
                   const SizedBox(height: 10),
                   analyticsData.isEmpty
                       ? const Text("No data yet.")
-                      : SizedBox(
-                          height: 200,
-
+                      : Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("Daily Entries: ${analyticsData.length}"),
+                            Text("Average Sleep: ${averageSleep.toStringAsFixed(1)} hrs"),
+                          ],
                         ),
                 ],
               ),
