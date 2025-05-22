@@ -35,20 +35,22 @@ class NightOwlApp extends StatelessWidget {
             primarySwatch: Colors.indigo,
             useMaterial3: true,
           ),
-          themeMode: themeProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
+          themeMode:
+              themeProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
           initialRoute: '/onboarding',
           routes: {
-            '/onboarding': (context) => const OnboardingPage(),
+            '/onboarding': (context) => OnboardingPage(),
             '/login': (context) => const LoginPage(),
             '/signup': (context) => const SignupPage(),
-            '/dashboard': (context) =>
-                authProvider.currentUser != null ? const DashboardPage() : const LoginPage(),
-            '/tracker': (context) => const TrackerPage(),
-            '/add_sleep': (context) => const AddSleepPage(),
+            '/dashboard': (context) => authProvider.currentUser != null
+                ? const DashboardPage()
+                : const LoginPage(),
+            '/tracker': (context) => TrackerPage(),
+            '/add_sleep': (context) => AddSleepPage(),
             '/smart_alarm': (context) => const SmartAlarmPage(),
-            '/history': (context) => const SleepHistoryPage(),
+            '/history': (context) => SleepHistoryPage(),
             '/analytics': (context) => const AnalyticsPage(),
-            '/tips': (context) => const TipsPage(),
+            '/tips': (context) => TipsPage(),
             '/settings': (context) => const SettingsPage(),
             '/quotes': (context) => const Placeholder(),
           },
