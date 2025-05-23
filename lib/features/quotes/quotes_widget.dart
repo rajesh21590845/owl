@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class QuotesPage extends StatelessWidget {
-  final List<String> quotes = [
+  const QuotesPage({super.key}); // ✅ This is the missing piece
+
+  final List<String> quotes = const [
     "“Sleep is the best meditation.” — Dalai Lama",
     "“A good laugh and a long sleep are the best cures.”",
     "“Sleep is the golden chain that ties health and our bodies together.”",
@@ -23,7 +25,8 @@ class QuotesPage extends StatelessWidget {
               padding: const EdgeInsets.all(16),
               child: Text(
                 quotes[index],
-                style: const TextStyle(fontSize: 16, fontStyle: FontStyle.italic),
+                style:
+                    const TextStyle(fontSize: 16, fontStyle: FontStyle.italic),
               ),
             ),
           );

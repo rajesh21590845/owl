@@ -14,6 +14,9 @@ import 'features/history/sleep_history_page.dart';
 import 'features/analytics/analytics_page.dart';
 import 'features/tips/tips_page.dart';
 import 'features/settings/settings_page.dart';
+import 'features/quotes/quotes_widget.dart'; // ✅ Corrected path and spelling
+import 'features/sleep_tracker/lullaby_page.dart';
+
 
 class NightOwlApp extends StatelessWidget {
   const NightOwlApp({super.key});
@@ -52,7 +55,9 @@ class NightOwlApp extends StatelessWidget {
             '/analytics': (context) => const AnalyticsPage(),
             '/tips': (context) => TipsPage(),
             '/settings': (context) => const SettingsPage(),
-            '/quotes': (context) => const Placeholder(),
+            '/quotes': (context) => const QuotesPage(), // ✅ Works now
+            '/lullabies': (context) => const LullabyPage(),
+
           },
         );
       },
