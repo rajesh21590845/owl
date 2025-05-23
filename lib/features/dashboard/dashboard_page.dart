@@ -91,10 +91,8 @@ class DashboardPage extends StatelessWidget {
                   Navigator.pushNamed(context, '/tracker');
                   break;
                 case 5:
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                        content: Text('Lullaby playback coming soon!')),
-                  );
+                  Navigator.pushNamed(
+                      context, '/lullabies'); // <-- Updated here
                   break;
                 case 6:
                   Navigator.pushNamed(context, '/quotes');

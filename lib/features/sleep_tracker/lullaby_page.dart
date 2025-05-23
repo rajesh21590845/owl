@@ -37,6 +37,9 @@ class _LullabyPageState extends State<LullabyPage> {
       });
     } catch (e) {
       print('Error playing lullaby: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to play lullaby')),
+      );
     }
   }
 
@@ -64,12 +67,14 @@ class _LullabyPageState extends State<LullabyPage> {
           final isPlaying = _playingIndex == index;
 
           return ListTile(
-            leading: Icon(isPlaying ? Icons.pause_circle : Icons.play_circle),
+            leading: Icon(isPlaying ? Icons.pause_circle_filled : Icons.play_circle_fill),
             title: Text(lullaby['title']!),
             onTap: () {
-              isPlaying
-                  ? _stopPlayback()
-                  : _playLullaby(lullaby['url']!, index);
+              if (isPlaying) {
+                _stopPlayback();
+              } else {
+                _playLullaby(lullaby['url']!, index);
+              }
             },
           );
         },
