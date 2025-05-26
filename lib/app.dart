@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+import 'SplashScreen.dart';
 import 'data/providers/auth_provider.dart';
 import 'data/providers/theme_provider.dart';
 import 'features/auth/login_page.dart';
@@ -14,8 +14,9 @@ import 'features/history/sleep_history_page.dart';
 import 'features/analytics/analytics_page.dart';
 import 'features/tips/tips_page.dart';
 import 'features/settings/settings_page.dart';
-import 'features/quotes/quotes_widget.dart'; // Correct path & spelling
+import 'features/quotes/quotes_widget.dart';
 import 'features/sleep_tracker/lullaby_page.dart';
+import 'widgets/MainScaffold.dart';
 
 class NightOwlApp extends StatelessWidget {
   const NightOwlApp({super.key});
@@ -39,8 +40,9 @@ class NightOwlApp extends StatelessWidget {
           ),
           themeMode:
               themeProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
-          initialRoute: '/onboarding',
+          initialRoute: '/',
           routes: {
+            '/': (context) => SplashScreen(),
             '/onboarding': (context) => OnboardingPage(),
             '/login': (context) => const LoginPage(),
             '/signup': (context) => const SignupPage(),
@@ -49,13 +51,13 @@ class NightOwlApp extends StatelessWidget {
                 : const LoginPage(),
             '/tracker': (context) => TrackerPage(),
             '/add_sleep': (context) => AddSleepPage(),
-            '/smart_alarm': (context) => const SmartAlarmPage(),
-            '/history': (context) => SleepHistoryPage(),
-            '/analytics': (context) => const AnalyticsPage(),
-            '/tips': (context) => TipsPage(),
-            '/settings': (context) => const SettingsPage(),
-            '/quotes': (context) => const QuotesPage(),
-            '/lullabies': (context) => const LullabyPage(),
+            '/smart_alarm': (context) => MainScaffold(child: SmartAlarmPage(), selectedIndex:3),
+            '/history': (context) => MainScaffold(child: SleepHistoryPage(), selectedIndex: 2),
+            '/analytics': (context) => MainScaffold(child: AnalyticsPage(), selectedIndex: 0),
+            '/tips': (context) => MainScaffold(child: TipsPage(), selectedIndex: 7),
+            '/settings': (context) => MainScaffold(child: SettingsPage(), selectedIndex: 1),
+            '/quotes': (context) => MainScaffold(child: QuotesPage(), selectedIndex: 6),
+            '/lullabies': (context) => MainScaffold(child: SleepMusicPlayerPage(), selectedIndex: 5),
           },
         );
       },

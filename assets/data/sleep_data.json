@@ -1,0 +1,43 @@
+{
+  "week": [
+    {
+      "day": "Mon",
+      "duration": 6.5,
+      "quality": 65
+    },
+    {
+      "day": "Tue",
+      "duration": 7.2,
+      "quality": 80
+    },
+    {
+      "day": "Wed",
+      "duration": 5.0,
+      "quality": 40
+    },
+    {
+      "day": "Thu",
+      "duration": 8.1,
+      "quality": 90
+    },
+    {
+      "day": "Fri",
+      "duration": 6.0,
+      "quality": 50
+    },
+    {
+      "day": "Sat",
+      "duration": 7.8,
+      "quality": 75
+    },
+    {
+      "day": "Sun",
+      "duration": 9.0,
+      "quality": 85
+    }
+  ],
+  "today": {
+    "duration": 7.4,
+    "quality": 78
+  }
+}

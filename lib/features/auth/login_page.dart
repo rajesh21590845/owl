@@ -32,12 +32,29 @@ class _LoginPageState extends State<LoginPage> {
     return null;
   }
 
-  void _submit() {
+  Future<void> _submit() async {
     if (_formKey.currentState!.validate()) {
       final authProvider = Provider.of<AuthProvider>(context, listen: false);
-      authProvider.login(
-          emailController.text.trim(), emailController.text.trim());
-      Navigator.pushReplacementNamed(context, '/dashboard');
+      final email = emailController.text.trim();
+      final password = passwordController.text;
+
+      try {
+        // Try login, if fails, throw error.
+        await authProvider.login(email, password);
+
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Logged in successfully!')),
+          );
+          Navigator.pushReplacementNamed(context, '/dashboard');
+        }
+      } catch (e) {
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Login failed: $e')),
+          );
+        }
+      }
     }
   }
 

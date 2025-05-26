@@ -70,7 +70,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   backgroundColor: Colors.indigo,
                   padding: EdgeInsets.symmetric(horizontal: 40, vertical: 12),
                 ),
-                child: Text('Get Started'),
+                child: Text('Get Started', style: TextStyle(color: Colors.white)),
               ),
             )
           : Container(

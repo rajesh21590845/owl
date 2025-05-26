@@ -14,7 +14,7 @@ dependencies:
   
 
   # Notifications
-  flutter_local_notifications: ^16.3.0
+
 
   # UI & Material icons
   cupertino_icons: ^1.0.2
@@ -30,6 +30,10 @@ dependencies:
 
   # For date/time formatting
   intl: ^0.18.1
+  flutter_local_notifications: ^19.2.1
+  flutter_secure_storage: ^9.2.4
+  fl_chart: ^1.0.0
+  path_provider: ^2.1.5
 
 dev_dependencies:
   flutter_test:
@@ -55,3 +59,14 @@ flutter:
     - assets/icons/download.png
     - assets/icons/zzz.png
     - assets/quotes/sleep_quotes.json
+    - assets/data/sleep_data.json
+    - assets/music/birds_nature.mp3
+    - assets/music/breath_of_life.mp3
+    - assets/music/calm_waves.mp3
+    - assets/music/distance_piano.mp3
+    - assets/music/melancholic.mp3
+    - assets/music/momentum.mp3
+    - assets/music/nostalgia.mp3
+    - assets/music/petals_of_memories.mp3
+    - assets/music/piano.mp3
+    - assets/music/serenity.mp3

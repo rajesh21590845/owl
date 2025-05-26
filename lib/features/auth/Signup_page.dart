@@ -13,6 +13,7 @@ class SignupPage extends StatefulWidget {
 
 class _SignupPageState extends State<SignupPage> {
   final _formKey = GlobalKey<FormState>();
+  final nameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -20,6 +21,13 @@ class _SignupPageState extends State<SignupPage> {
   void initState() {
     super.initState();
     emailController.text = widget.prefillEmail ?? '';
+  }
+
+  String? _validateName(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return 'Name is required';
+    }
+    return null;
   }
 
   String? _validateEmail(String? value) {
@@ -40,12 +48,29 @@ class _SignupPageState extends State<SignupPage> {
     return null;
   }
 
-  void _submit() {
+  Future<void> _submit() async {
     if (_formKey.currentState!.validate()) {
       final authProvider = Provider.of<AuthProvider>(context, listen: false);
-      authProvider.login(
-          emailController.text.trim(), emailController.text.trim());
-      Navigator.pushReplacementNamed(context, '/dashboard');
+      final name = nameController.text.trim();
+      final email = emailController.text.trim();
+      final password = passwordController.text;
+
+      try {
+        await authProvider.signUp(name, email, password);
+
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Account created successfully!')),
+          );
+          Navigator.pushReplacementNamed(context, '/dashboard');
+        }
+      } catch (e) {
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Signup failed: $e')),
+          );
+        }
+      }
     }
   }
 
@@ -75,6 +100,13 @@ class _SignupPageState extends State<SignupPage> {
                     style: TextStyle(color: Colors.white, fontSize: 20)),
                 const SizedBox(height: 24),
                 TextFormField(
+                  controller: nameController,
+                  validator: _validateName,
+                  style: const TextStyle(color: Colors.white),
+                  decoration: _inputDecoration('Name'),
+                ),
+                const SizedBox(height: 16),
+                TextFormField(
                   controller: emailController,
                   validator: _validateEmail,
                   keyboardType: TextInputType.emailAddress,
@@ -95,8 +127,7 @@ class _SignupPageState extends State<SignupPage> {
                   child: ElevatedButton(
                     onPressed: _submit,
                     style: _buttonStyle(),
-                    child:
-                        const Text("Register", style: TextStyle(fontSize: 16)),
+                    child: const Text("Register", style: TextStyle(fontSize: 16)),
                   ),
                 ),
               ],
