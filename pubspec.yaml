@@ -59,6 +59,7 @@ flutter:
     - assets/icons/download.png
     - assets/icons/zzz.png
     - assets/quotes/sleep_quotes.json
+    - assets/data/screen_usage.json
     - assets/data/sleep_data.json
     - assets/music/birds_nature.mp3
     - assets/music/breath_of_life.mp3

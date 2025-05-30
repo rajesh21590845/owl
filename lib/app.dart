@@ -49,7 +49,7 @@ class NightOwlApp extends StatelessWidget {
             '/dashboard': (context) => authProvider.currentUser != null
                 ? const DashboardPage()
                 : const LoginPage(),
-            '/tracker': (context) => TrackerPage(),
+            '/tracker': (context) => MainScaffold(child: TrackerPage(),selectedIndex:4),
             '/add_sleep': (context) => AddSleepPage(),
             '/smart_alarm': (context) => MainScaffold(child: SmartAlarmPage(), selectedIndex:3),
             '/history': (context) => MainScaffold(child: SleepHistoryPage(), selectedIndex: 2),
